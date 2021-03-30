@@ -45,6 +45,7 @@ header h1 {
 .mainbox .column {
   flex: 3;
 }
+/*属于父元素的第二个子元素*/
 .mainbox .column:nth-child(2) {
   flex: 5;
   margin: 0 0.125rem 0.1875rem;
