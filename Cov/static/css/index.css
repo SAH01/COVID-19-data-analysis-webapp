@@ -196,6 +196,7 @@ header h1 {
   background: url(../images/map.png);
   background-size: 100% 100%;
   opacity: 0.3;
+  /*不透明度*/
 }
 .map .map2 {
   position: absolute;
@@ -205,7 +206,7 @@ header h1 {
   width: 8.0375rem;
   height: 8.0375rem;
   background: url(../images/lbx.png);
-  animation: rotate1 15s linear infinite;
+  animation: rotate1 12s linear infinite;
   opacity: 0.6;
   background-size: 100% 100%;
 }
