@@ -19,7 +19,7 @@ var ec_center_option = {
         formatter: function(params, ticket, callback) {
             return  params.data.name + "：" + "<br />" + "累计确诊" + "：" + params.data.value +
                 "<br />" + "累计治愈" + "：" + params.data.heal + "<br />" + "累计死亡" + "：" +
-                params.data.dead + "<br />" + "疑似病例：" + "暂未信息"
+                params.data.dead + "<br />" + "疑似病例：" + "暂无信息"
         }
     },
     //左侧小导航

@@ -139,7 +139,7 @@ function initEcharts(mapData, pointData, mapJson) {
                     formatter: function(params, ticket, callback) {
                         return params.data.name + "<br />" + "累计确诊" + "：" + params.data.value +
                             "<br />" + "累计治愈" + "：" + params.data.heal + "<br />"
-                            + "累计死亡" + "：" + params.data.dead + "<br />" + "疑似病例：" + 0
+                            + "累计死亡" + "：" + params.data.dead + "<br />" + "疑似病例：" + "暂无信息"
                     }
                 },
         title: {
