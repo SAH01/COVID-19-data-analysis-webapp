@@ -56,7 +56,7 @@
     height: 45%;
     top: 55%;
     left: 0;
-    /*background: aquamarine;*/
+    /*background: chocolate;*/
 }
 #r1{
     position: absolute;
@@ -72,7 +72,7 @@
     height: 45%;
     top: 55%;
     right: 0;
-    background: cadetblue;
+    /*background: cadetblue;*/
 }
 .num{
     width:25%;
