@@ -107,7 +107,7 @@ var china = function() {
     })
 })();
 // 全球疫情确诊图模块
-(function() {
+/*(function() {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.querySelector(".bar1 .chart"));
     option = {
@@ -215,7 +215,7 @@ var china = function() {
     window.addEventListener("resize", function() {
         myChart.resize();
     });
-})();
+})();*/
 //确诊趋势模块
 (function() {
     var myChart = echarts.init(document.querySelector('.line .chart'))
