@@ -73,20 +73,39 @@
                 </div>
             </div>
             <!-- 地图模块 -->
-            <div class="map">
+
+                <div class="map">
                 <div class="map1"></div>
                 <div class="map2"></div>
                 <div class="map3"></div>
                 <div class="chart" id="viewDiv"></div>
                 <div class="panelFooter"></div>
+                </div>
             </div>
         </div>
         <!-- 右 -->
         <div class="column">
             <div class="panel bl bar1">
-                <h2>世界疫情确诊情况前十五</h2>
+                <h2>世界疫情数据汇总查询</h2>
+                <div class="map-table">
+                <table align="center" style="margin:8px"  cellspacing="12px">
+                <thead>
+              <tr style="color: #FFB6C1" >
+                <th>时间 </th>
+                <th>国家 </th>
+                <th>累计确诊 </th>
+                <th>累计治愈 </th>
+                <th>累计死亡 </th>
+                <th>现存治愈 </th>
+                <th>排名 </th>
+              </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
                 <div class="chart"></div>
                 <div class="panelFooter"></div>
+                </div>
             </div>
         </div>
         <div class="data">数据来源于腾讯</div>
@@ -123,7 +142,6 @@
             $(".no-hd li:first").text(sum)
             $(".no-hd li:nth-child(2)").text(cureSum)
         })
-
     // $.ajax({
     //     url: 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',
     //     type: 'get',
@@ -151,5 +169,4 @@
     // })
     </script>
 </body>
-
 </html>

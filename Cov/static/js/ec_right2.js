@@ -122,7 +122,9 @@ function initEcharts(mapData, pointData, mapJson) {
 
     //这里加true是为了让地图重新绘制，不然如果你有筛选的时候地图会飞出去
     myChart.setOption({
-        backgroundColor: 'rgb(20,28,52)',
+        //设置位置
+        layoutCenter: ['20%', '10%'],//距离左右，上下距离的百分比
+        // backgroundColor: 'rgb(20,28,52)',
         // tooltip: {
         //     trigger: "item",
         //     formatter: p => {
@@ -185,8 +187,8 @@ function initEcharts(mapData, pointData, mapJson) {
         visualMap: {
         show:true,
         size:16,
-        x:'left',
-        y:'bottom',
+        x:'right',
+        y:'30%',
         textStyle: {
             fontSize:14
         },  //这是那个图例的文字和颜色配置
@@ -202,7 +204,7 @@ function initEcharts(mapData, pointData, mapJson) {
                 type: "map",
                 map: "Map",
                 roam: true, //是否可缩放
-                zoom: 1.1, //缩放比例
+                zoom: 1, //缩放比例
                 data: mapData,
                 itemStyle: {
                     normal: {

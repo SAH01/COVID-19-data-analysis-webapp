@@ -66,13 +66,13 @@
     right: 0;
     /*background: aquamarine;*/
 }
-#r2{
+.chart{
     position: absolute;
     width: 30%;
     height: 45%;
     top: 55%;
     right: 0;
-    /*background: cadetblue;*/
+    /*background: coral;*/
 }
 .num{
     width:25%;

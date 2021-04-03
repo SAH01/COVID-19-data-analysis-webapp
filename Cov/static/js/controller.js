@@ -87,6 +87,9 @@ function update_all() {
         }
     })
 }
+
+
+
 get_c2_data()
 update_all()
 gettime()

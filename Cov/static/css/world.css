@@ -258,7 +258,13 @@ header h1 {
     height: 8.95rem;
     border: 1px solid rgba(25, 186, 139, 0.17);
 }
-
+tr{
+     font-size: 16px;
+}
+td{
+    font-size: 13px;
+    background: rgba(176,196,222,0.4);
+}
 @keyframes rotate {
     from {
         transform: translate(-50%, -50%) rotate(0deg);

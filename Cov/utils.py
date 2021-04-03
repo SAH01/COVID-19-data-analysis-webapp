@@ -118,18 +118,27 @@ def get_city(pro_name):
         if(temp[0]==pro_name):
             result.append(temp)
     return result
+def get_world():
+    sql="SELECT dt, c_name,confirm,heal,dead,nowConfirm FROM world  " \
+        "WHERE dt=(SELECT dt FROM world order by dt desc limit 1) " \
+        "order by confirm desc; "
+    res=query(sql)
+    # print(res)
+    list=[]
+    for i in res:
+        list.append(i)
+    # print(list)
+    return list;
 def find_worldByName(c_name):
     sql = " SELECT * FROM world WHERE c_name LIKE '%%%%%s%%%%' order by dt desc "%c_name
-
     sql_temp = " SELECT * FROM world WHERE c_name LIKE '"+c_name+"'"
+
     res = query(sql)
     list= []
     for i in res:
-        print(i)
+        # print(i)
         list.append(i)
     return list;
-
-
 
 def find_worldByContinent(continent):
     sql = " SELECT * FROM world WHERE continent LIKE '%%%%%s%%%%'" %continent
@@ -144,8 +153,10 @@ if __name__ == '__main__':
         # res=get_city("河北")
         # print(res)
         # print(res[0][0])
-        res=find_worldByName("美国");
+        # res=find_worldByName("美国");
         # print(res)
-        print(res)
-        res=find_worldByContinent("北美洲")
+        # print(res)
+        # res=find_worldByContinent("北美洲")
+        # print(res)
+        res=get_world();
         print(res)

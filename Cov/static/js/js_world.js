@@ -211,7 +211,7 @@ var china = function() {
             })
         }
     })
-
+    setInterval(ajax, 3600000) //设定定时器，循环运行;
     window.addEventListener("resize", function() {
         myChart.resize();
     });
@@ -388,7 +388,6 @@ var china = function() {
     };
     // 把配置和数据给实例对象
     myChart.setOption(option);
-
     var count = []
     var count1 = []
     var date = []
@@ -417,7 +416,6 @@ var china = function() {
             })
         }
     })
-
     window.addEventListener('resize', function() {
         myChart.resize()
     })
@@ -737,3 +735,60 @@ var china = function() {
         myChart.resize()
     })
 })();
+//给表格添加数据
+function get_table() {
+    $.ajax({
+        url: "/table",
+        success: function (data) {
+            var table_data=data.data;
+            print(table_data);
+            var appendHTML = "";
+        if($(".map-table tbody tr").length>0){
+            $(".map-table tbody tr").remove();
+        }
+        for(var i=0; i<15; i++){
+            appendHTML = "<tr align='center' style='color:aquamarine;' ><td>"+
+            table_data.dt+"</td><td>"+
+            table_data.c_name+"</td><td>"+
+            table_data.confirm+"</td><td>"+
+            table_data.heal+"</td><td>"+
+            table_data.dead+"</td><td>"+
+            table_data.nowConfirm+"</td><td>"+
+            (i+1)+"</td></tr>";
+            $(".map-table tbody").append(appendHTML);
+            }
+        }
+    })
+}
+get_table();
+setInterval(get_table,100);
+/*
+(function (){
+    // 循环生成地图下的table表格
+    var addressList = [
+        {'name':'朝阳区','contain':'1.2万','Electricity':'3000','energy':'1500','tax':'1.1万','sale':'5.0万','grow':'1'},
+        {'name':'东城区','contain':'1.0万','Electricity':'2000','energy':'1200','tax':'1.1万','sale':'3.0万','grow':'2'},
+        {'name':'通州区','contain':'2.1万','Electricity':'5880','energy':'3600','tax':'1.1万','sale':'2.0万','grow':'3'},
+        {'name':'西城区','contain':'1.1万','Electricity':'2550','energy':'1470','tax':'1.1万','sale':'1.8万','grow':'4'}
+    ];
+    function tableList(){
+        var appendHTML = "";
+        if($(".map-table tbody tr").length>0){
+            $(".map-table tbody tr").remove();
+        }
+
+        for(var i=0; i<addressList.length; i++) {
+            appendHTML = "<tr><td>" +
+                addressList[i].name + "</td><td>" +
+                addressList[i].contain + "</td><td>" +
+                addressList[i].Electricity + "</td><td>" +
+                addressList[i].energy + "</td><td>" +
+                addressList[i].tax + "</td><td>" +
+                addressList[i].sale + "</td><td>" +
+                addressList[i].grow + "</td></tr>";
+
+            $(".map-table tbody").append(appendHTML);
+        }
+    }
+tableList();
+})()*/

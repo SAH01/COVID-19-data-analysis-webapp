@@ -31,7 +31,7 @@ def get_c1_data():
 def get_c2_data():
     res = []
     for tup in utils.get_c2_data():
-        print(tup)
+        # print(tup)
         res.append({"name": tup[0], "value": int(tup[1]),"heal":int(tup[2]),"dead":int(tup[3])})
     return jsonify({"data": res})
 
@@ -83,7 +83,20 @@ def get_r2_data():
                         "heal": int(tup[3]), "dead": int(tup[4])})
         print(res)
     return jsonify({"data": res})
-
+#获取表格数据
+"""
+The view function did not return a valid response. 
+The return type must be a string, dict, tuple, Response instance, 
+or WSGI callable, but it was a list.
+"""
+@app.route('/table')
+def get_table():
+    res=[]
+    for tup in utils.get_world():
+        res.append({"dt": tup[0],"c_name":tup[1],"confirm":tup[2],
+                    "heal":tup[3],"dead":tup[4],"nowConfirm":tup[5],})
+    # print(res)
+    return jsonify({"data": res})
 def addname(name):
     list=["北京","天津","上海","重庆"]
     list2=["内蒙古","西藏"]
@@ -210,9 +223,7 @@ def update_all():
     spider.update_history()
     spider.update_details()
     spider.insert_world()
+    # utils.get_world()
     return "update"
 if __name__ == '__main__':
-    # res=get_r2_data()
-    # print(res)
     app.run()
-

@@ -218,7 +218,7 @@ def get_world_data():
     # result = session.get('https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist')
     # 打印结果
     # print(result.text)
-    res = requests.get(url, headers=headers)
+    res = requests.get(url,headers=headers)
     # print(res.text)
     response_data_0 = json.loads(res.text.replace('jQuery34102848205531413024_1584924641755(', '')[:-1])  #转化json对象
     # print(response_data_0.keys())
@@ -278,7 +278,7 @@ def insert_world():
     conn = None
     try:
         dic = get_world_data()
-        print(dic)
+        # print(dic)
         conn, cursor = get_conn()
         sql = "insert into world values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         sql_query = 'select %s=(select dt from world order by id desc limit 1)' #对比当前最大时间戳
