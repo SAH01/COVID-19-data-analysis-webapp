@@ -65,7 +65,6 @@ function get_l2_data() {
             ec_left2.setOption(ec_left2_Option)
 		},
 		error: function(xhr, type, errorThrown) {
-
 		}
     })
 }

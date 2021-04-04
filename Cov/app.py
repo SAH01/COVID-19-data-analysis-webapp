@@ -9,7 +9,7 @@ import json
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
-    return render_template("main.html")
+    return render_template("world.html")
 @app.route('/ajax',methods=["get","post"])
 # def hello_world1():
 #     return '100'
@@ -93,8 +93,8 @@ or WSGI callable, but it was a list.
 def get_table():
     res=[]
     for tup in utils.get_world():
-        res.append({"dt": tup[0],"c_name":tup[1],"confirm":tup[2],
-                    "heal":tup[3],"dead":tup[4],"nowConfirm":tup[5],})
+        res.append({"dt": tup[0], "c_name": tup[1], "confirm":tup[2],
+                    "heal": tup[3], "dead": tup[4], "nowConfirm": tup[5]})
     # print(res)
     return jsonify({"data": res})
 def addname(name):

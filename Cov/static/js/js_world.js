@@ -738,22 +738,26 @@ var china = function() {
 //给表格添加数据
 function get_table() {
     $.ajax({
+        async: false,
         url: "/table",
+        dataType:"json",
         success: function (data) {
             var table_data=data.data;
-            print(table_data);
+            for(var i=0;i<table_data.length;i++){
+                console.log(table_data[i]);
+            }
             var appendHTML = "";
         if($(".map-table tbody tr").length>0){
             $(".map-table tbody tr").remove();
         }
-        for(var i=0; i<15; i++){
+        for(var i=0; i<20; i++){
             appendHTML = "<tr align='center' style='color:aquamarine;' ><td>"+
-            table_data.dt+"</td><td>"+
-            table_data.c_name+"</td><td>"+
-            table_data.confirm+"</td><td>"+
-            table_data.heal+"</td><td>"+
-            table_data.dead+"</td><td>"+
-            table_data.nowConfirm+"</td><td>"+
+            table_data[i].dt+"</td><td>"+
+            table_data[i].c_name+"</td><td>"+
+            table_data[i].confirm+"</td><td>"+
+            table_data[i].heal+"</td><td>"+
+            table_data[i].dead+"</td><td>"+
+            table_data[i].nowConfirm+"</td><td>"+
             (i+1)+"</td></tr>";
             $(".map-table tbody").append(appendHTML);
             }
@@ -761,7 +765,7 @@ function get_table() {
     })
 }
 get_table();
-setInterval(get_table,100);
+setInterval(get_table,1000000);
 /*
 (function (){
     // 循环生成地图下的table表格
