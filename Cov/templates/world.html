@@ -16,9 +16,9 @@
 
 <body>
     <header>
-        <h1> 全球疫情地图 </h1>
+        <h1> 全球疫情可视化 </h1>
         <div class="showTime"></div>
-        <div class="index"><a href="https://ypigy.gitee.io/">首页</a></div>
+<!--        <div class="index"><a href="https://ypigy.gitee.io/">首页</a></div>-->
         <script>
         var formaDate = function() {
             var d = new Date()
@@ -75,9 +75,6 @@
             <!-- 地图模块 -->
 
                 <div class="map">
-                <div class="map1"></div>
-                <div class="map2"></div>
-                <div class="map3"></div>
                 <div class="chart" id="viewDiv"></div>
                 <div class="panelFooter"></div>
                 </div>
@@ -88,16 +85,16 @@
             <div class="panel bl bar1">
                 <h2>世界疫情数据汇总查询</h2>
                 <div class="map-table">
-                <table align="center" style="margin:5px"  cellspacing="10px">
+                <table align="center" style="margin:3px"  cellspacing="7px">
                 <thead>
               <tr style="color: #FFB6C1" >
-                <th>时间 </th>
-                <th>国家 </th>
-                <th>累计确诊 </th>
-                <th>累计治愈 </th>
-                <th>累计死亡 </th>
-                <th>现存治愈 </th>
-                <th>排名 </th>
+                <th>时间</th>
+                <th>国家</th>
+                <th>累计确诊</th>
+                <th>累计治愈</th>
+                <th>累计死亡</th>
+                <th>现存确诊</th>
+                <th>排名</th>
               </tr>
                 </thead>
                 <tbody>

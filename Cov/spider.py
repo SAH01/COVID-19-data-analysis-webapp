@@ -50,6 +50,7 @@ def get_details():
     """
     areaTree_data = json.loads(response_data['data'])['areaTree']
     temp=json.loads(response_data['data'])
+    # print(temp)
 #     print(temp.keys())
 #     print(areaTree_data[0].keys())
     """
@@ -70,6 +71,7 @@ def get_details():
         #     print(province_data)
 
     ds= temp['lastUpdateTime']
+    # print(ds)
     details=[]
     for pro_infos in areaTree_data[0]['children']:
         province_name = pro_infos['name']  # 省名
@@ -103,7 +105,8 @@ def get_history():
     for i in chinaDayList:
         ds = '2021.' + i['date']#时间
         tup = time.strptime(ds,'%Y.%m.%d')
-        ds = time.strftime('%Y-%m-%d',tup)#改变时间格式，插入数据库
+        ds = time.strftime('%Y-%m-%d %H:%M:%S',tup)#改变时间格式，插入数据库
+        # print(ds)
         confirm = i['confirm']
         suspect = i['suspect']
         heal = i['heal']
@@ -112,7 +115,7 @@ def get_history():
     for i in chinaDayAddList:
         ds = '2021.' + i['date']#时间
         tup = time.strptime(ds,'%Y.%m.%d')
-        ds = time.strftime('%Y-%m-%d',tup)#改变时间格式，插入数据库
+        ds = time.strftime('%Y-%m-%d %H:%M:%S',tup)#改变时间格式，插入数据库
         confirm_add = i['confirm']
         suspect_add = i['suspect']
         heal_add = i['heal']
@@ -225,6 +228,7 @@ def get_world_data():
     # print(response_data_0)
     response_data_1=response_data_0['data']
     # print(response_data_1)
+    # print(response_data_1)
     # print(response_data_1[0].keys())
     # data = jsonpath.jsonpath(resJson_1, '$.data.*')
     # print(resJson_1.keys())
@@ -239,8 +243,9 @@ def get_world_data():
     for i in response_data_1:
         temp=i['y']+'.'+i['date']
         tup = time.strptime(temp, '%Y.%m.%d')
-        dt = time.strftime('%Y-%m-%d', tup)  # 改变时间格式，插入数据库 日期
-        # print(ds)
+        # print(tup)
+        dt = time.strftime('%Y-%m-%d %H:%M:%S', tup)  # 改变时间格式，插入数据库 日期
+        # print(dt)
         c_name=i['name']        #国家
         continent=i['continent']  #所属大洲
         nowConfirm=i['nowConfirm']  #现有确诊
@@ -283,9 +288,10 @@ def insert_world():
         sql = "insert into world values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         sql_query = 'select %s=(select dt from world order by id desc limit 1)' #对比当前最大时间戳
         cursor.execute(sql_query,dic['美国']['dt'])
+        print(dic['美国']['dt'])
         if not cursor.fetchone()[0]:
             print(f"{time.asctime()}开始插入世界数据")
-            for k, v in dic.items():   # item 格式 {'2021-01-13': {'confirm': 41, 'suspect': 0, 'heal': 0, 'dead': 1}
+            for k, v in dic.items():
                 cursor.execute(sql, [0,v.get('dt'), k, v.get("continent"), v.get("nowConfirm"),
                             v.get("confirm"), v.get("confirmAdd"),v.get("suspect"),v.get("heal"), v.get("dead")
                     , v.get("confirmAddCut"), v.get("confirmCompare"), v.get("nowConfirmCompare"), v.get("healCompare"),
@@ -302,7 +308,9 @@ def insert_world():
 if __name__ == "__main__":
    res=get_world_data();
    # res=get_history()
+   # get_history()
    # print(res)
    # print(res)
-   # insert_world()
-   update_history()
+   insert_world()
+   # update_history()
+   # get_details()

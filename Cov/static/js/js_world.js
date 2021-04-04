@@ -750,7 +750,7 @@ function get_table() {
         if($(".map-table tbody tr").length>0){
             $(".map-table tbody tr").remove();
         }
-        for(var i=0; i<20; i++){
+        for(var i=0; i<24; i++){
             appendHTML = "<tr align='center' style='color:aquamarine;' ><td>"+
             table_data[i].dt+"</td><td>"+
             table_data[i].c_name+"</td><td>"+
@@ -796,3 +796,11 @@ setInterval(get_table,1000000);
     }
 tableList();
 })()*/
+function update_world() {
+    $.ajax({
+        url: "/update_world",
+        success: function (data) {
+        }
+    })
+}
+setInterval(update_world(),100000)

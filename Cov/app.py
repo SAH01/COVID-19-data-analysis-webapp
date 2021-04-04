@@ -222,8 +222,10 @@ def addcityname(name):
 def update_all():
     spider.update_history()
     spider.update_details()
+    return "update"
+@app.route("/update_world")
+def update_world():
     spider.insert_world()
-    # utils.get_world()
     return "update"
 if __name__ == '__main__':
     app.run()
