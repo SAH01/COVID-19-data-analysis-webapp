@@ -672,6 +672,7 @@ var china = function() {
             type: 'map',
             mapType: 'world',
             roam: true,
+            zoom:1.2,
             itemStyle: {
                 normal: {
                     areaColor: '#fce8d5',
@@ -740,9 +741,10 @@ function get_table() {
     $.ajax({
         async: false,
         url: "/table",
-        dataType:"json",
+        // dataType:"json",
         success: function (data) {
             var table_data=data.data;
+            // alert(table_data)
             for(var i=0;i<table_data.length;i++){
                 console.log(table_data[i]);
             }

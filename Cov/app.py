@@ -9,7 +9,7 @@ import json
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
-    return render_template("world.html")
+    return render_template("main.html")
 @app.route('/ajax',methods=["get","post"])
 # def hello_world1():
 #     return '100'

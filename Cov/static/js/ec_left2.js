@@ -35,7 +35,6 @@ var ec_left2_Option = {
 		type: 'category',
 		//x轴坐标点开始与结束点位置都不在最边缘
 		// boundaryGap : true,
-
 		data: []
 	}],
 	yAxis: [{
