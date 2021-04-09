@@ -9,19 +9,12 @@ import json
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
-    return render_template("main.html")
+    return render_template("world.html")
 @app.route('/ajax',methods=["get","post"])
-# def hello_world1():
-#     return '100'
-#
-# @app.route('/tem')
-# def hello_world2():
-#     return render_template("index.html")
 #获取时间动态
 @app.route('/time')
 def get_time():
     return utils.get_time()
-
 @app.route('/c1')
 def get_c1_data():
     data=utils.get_c1_data()

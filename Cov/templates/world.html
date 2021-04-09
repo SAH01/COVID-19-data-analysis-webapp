@@ -87,7 +87,7 @@
                 <div class="map-table">
                 <table align="center" style="margin:3px"  cellspacing="7px">
                 <thead>
-              <tr style="color: #FFB6C1" >
+                 <tr style="color: #FFB6C1" id="tr_data" >
                 <th>时间</th>
                 <th>国家</th>
                 <th>累计确诊</th>
@@ -97,7 +97,7 @@
                 <th>排名</th>
               </tr>
                 </thead>
-                <tbody>
+                <tbody id="bd_data">
                 </tbody>
             </table>
                 <div class="chart"></div>
@@ -139,31 +139,6 @@
             $(".no-hd li:first").text(sum)
             $(".no-hd li:nth-child(2)").text(cureSum)
         })
-    // $.ajax({
-    //     url: 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',
-    //     type: 'get',
-    //     // data: {},
-    //     dataType: 'jsonp',
-    //     success: function(data) {
-    //         var res = data.data || "";
-    //         // console.log(JSON.parse(res).chinaTotal.heal)
-    //         var res1 = JSON.parse(res).chinaTotal.confirm;
-    //         var res2 = JSON.parse(res).chinaTotal.heal;
-    //         $.ajax({
-    //             url: 'https://api.inews.qq.com/newsqa/v1/automation/modules/list?modules=FAutoGlobalStatis,FAutoContinentStatis,FAutoGlobalDailyList,FAutoCountryConfirmAdd',
-    //             type: 'get',
-    //             // data: {},
-    //             dataType: 'json',
-    //             success: function(data) {
-    //                 // console.log(data)
-    //                 var sum = data.data.FAutoGlobalStatis.confirm + res1
-    //                 var cureSum = data.data.FAutoGlobalStatis.heal + res2
-    //                 $(".no-hd li:first").text(sum)
-    //                 $(".no-hd li:nth-child(2)").text(cureSum)
-    //             }
-    //         })
-    //     }
-    // })
     </script>
 </body>
 </html>

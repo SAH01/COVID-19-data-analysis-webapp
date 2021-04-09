@@ -420,6 +420,9 @@ var china = function() {
         myChart.resize()
     })
 })();
+
+
+
 //地图模块
 (function() {
     var myChart = echarts.init(document.querySelector('.map .chart'))
@@ -659,7 +662,7 @@ var china = function() {
         visualMap: {
             min: 0,
             max: 1000000,
-            text: ['High', 'Low'],
+            text: ['High', 'Low'],//两端的文本
             realtime: false,
             calculable: false,
             textStyle: {
@@ -675,11 +678,15 @@ var china = function() {
             zoom:1.2,
             itemStyle: {
                 normal: {
-                    areaColor: '#fce8d5',
+                    areaColor: '#f0fcd5',
                     borderColor: 'rgb(0,108,255)',
                 },
                 emphasis: {
+                    //地图里文字的样式
                     label: {
+                        textStyle:{
+                            size: 18,
+                        },
                         show: true,
                         color: 'black'
                     },
@@ -690,6 +697,7 @@ var china = function() {
             // data: 
         }]
     };
+
     // 把配置和数据给实例对象
     myChart.setOption(option);
     var virus = []
@@ -710,6 +718,7 @@ var china = function() {
             })
         }
     });
+
     $.ajax({
         url: 'https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist',
         type: 'get',
@@ -735,6 +744,69 @@ var china = function() {
     window.addEventListener('resize', function() {
         myChart.resize()
     })
+    //实现鼠标放到地图上相应表格高亮
+    $.ajax({
+        async: false,
+        url: "/table",
+        // dataType:"json",
+        success: function (data) {
+            var table_data=data.data;
+            // alert(table_data)
+            for(var i=0;i<table_data.length;i++){
+                console.log(table_data[i]);
+            }
+
+            //  移入该区域时，高亮
+             myChart.on('mouseOver', function(params){
+                 console.log(params);//此处写点击事件内容
+                 for(var i=0;i<24;i++){
+                    // data11[i].value="0";
+                     if(params.name == table_data[i].c_name){
+                         //测试如果鼠标放到哪个国家，就弹出哪个国家的名字
+                         //  alert(params.name)
+                         // console.log(params.name);
+                         //addressList[i].value="1";
+                         //选中高亮
+                         $("#bd_data").children().eq(i).css("background","rgba(176, 196, 222,1)")
+                     }
+                 }
+             });
+            //  移出该区域时，取消高亮
+             myChart.on('mouseOut', function(params){
+                console.log(params);//此处写点击事件内容
+                for(var i=0;i<24;i++){
+                   // data11[i].value="0";
+                    if(params.name == table_data[i].c_name){
+                        //测试如果鼠标离开哪个国家，就弹出哪个国家的名字
+                        //  alert("离开"+params.name)
+                        // console.log(params.name);
+                        //取消高亮
+                        $("#bd_data").children().eq(i).css("background","rgba(176, 196, 222, 0.1)")
+                    }
+                }
+            });
+        }
+    })
+
+     $.ajax({
+        async: false,
+        url: "/table",
+        // dataType:"json",
+        success: function (data)
+        {
+             var table_data=data.data;
+            // 鼠标移入的第几行数据
+            $("#bd_data").mouseleave(function(){
+                var hang = $(this).prevAll().length;
+                myChart.dispatchAction({ type: 'mouseenter', name:table_data[hang].text});//取消高亮
+            })
+            //success
+            $("#bd_data").mouseleave(function(){
+                var hang = $(this).prevAll().length;
+                myChart.dispatchAction({ type: 'downplay', name:table_data[hang].text});//取消高亮
+            })
+        }
+     })
 })();
 //给表格添加数据
 function get_table() {
@@ -746,14 +818,14 @@ function get_table() {
             var table_data=data.data;
             // alert(table_data)
             for(var i=0;i<table_data.length;i++){
-                console.log(table_data[i]);
+                // console.log(table_data[i]);
             }
             var appendHTML = "";
         if($(".map-table tbody tr").length>0){
             $(".map-table tbody tr").remove();
         }
         for(var i=0; i<24; i++){
-            appendHTML = "<tr align='center' style='color:aquamarine;' ><td>"+
+            appendHTML = "<tr align='center' style='color:aquamarine;' id='tr_data'><td>"+
             table_data[i].dt+"</td><td>"+
             table_data[i].c_name+"</td><td>"+
             table_data[i].confirm+"</td><td>"+
@@ -761,43 +833,14 @@ function get_table() {
             table_data[i].dead+"</td><td>"+
             table_data[i].nowConfirm+"</td><td>"+
             (i+1)+"</td></tr>";
-            $(".map-table tbody").append(appendHTML);
+                $(".map-table tbody").append(appendHTML);
             }
         }
     })
 }
 get_table();
-setInterval(get_table,1000000);
-/*
-(function (){
-    // 循环生成地图下的table表格
-    var addressList = [
-        {'name':'朝阳区','contain':'1.2万','Electricity':'3000','energy':'1500','tax':'1.1万','sale':'5.0万','grow':'1'},
-        {'name':'东城区','contain':'1.0万','Electricity':'2000','energy':'1200','tax':'1.1万','sale':'3.0万','grow':'2'},
-        {'name':'通州区','contain':'2.1万','Electricity':'5880','energy':'3600','tax':'1.1万','sale':'2.0万','grow':'3'},
-        {'name':'西城区','contain':'1.1万','Electricity':'2550','energy':'1470','tax':'1.1万','sale':'1.8万','grow':'4'}
-    ];
-    function tableList(){
-        var appendHTML = "";
-        if($(".map-table tbody tr").length>0){
-            $(".map-table tbody tr").remove();
-        }
+setInterval(get_table,100000);
 
-        for(var i=0; i<addressList.length; i++) {
-            appendHTML = "<tr><td>" +
-                addressList[i].name + "</td><td>" +
-                addressList[i].contain + "</td><td>" +
-                addressList[i].Electricity + "</td><td>" +
-                addressList[i].energy + "</td><td>" +
-                addressList[i].tax + "</td><td>" +
-                addressList[i].sale + "</td><td>" +
-                addressList[i].grow + "</td></tr>";
-
-            $(".map-table tbody").append(appendHTML);
-        }
-    }
-tableList();
-})()*/
 function update_world() {
     $.ajax({
         url: "/update_world",
