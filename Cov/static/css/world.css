@@ -267,6 +267,8 @@ td{
 .map-table{
     position: absolute;
     margin: 20px 10px 10px 10px;
+    overflow:scroll;
+    height: 9.2rem;
 }
 @keyframes rotate {
     from {

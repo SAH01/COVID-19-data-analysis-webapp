@@ -424,6 +424,43 @@ var china = function() {
 
 
 //地图模块
+
+//给表格添加数据
+function get_table() {
+    $.ajax({
+        async: true,
+        url: "/table",
+        // dataType:"json",
+        success: function (data) {
+            var table_data=data.data;
+            // alert(table_data)
+            for(var i=0;i<table_data.length;i++){
+                // console.log(table_data[i]);
+            }
+            var appendHTML = "";
+        if($(".map-table tbody tr").length>0){
+            $(".map-table tbody tr").remove();
+        }
+        // alert(table_data.length)
+        for(var i=0; i<table_data.length; i++){
+            //分割日期字符串
+            strdt=table_data[i].dt.split(" ");
+            strdt=strdt[0]+strdt[1]+strdt[2]+strdt[3]
+            appendHTML = "<tr align='center' style='color:aquamarine;'><td>"+
+            strdt+"</td><td>"+
+            table_data[i].c_name+"</td><td>"+
+            table_data[i].confirm+"</td><td>"+
+            table_data[i].heal+"</td><td>"+
+            table_data[i].dead+"</td><td>"+
+            table_data[i].nowConfirm+"</td><td>"+
+            (i+1)+"</td></tr>";
+                $(".map-table tbody").append(appendHTML);
+            }
+        }
+    })
+}
+get_table();
+setInterval(get_table,100000);
 (function() {
     var myChart = echarts.init(document.querySelector('.map .chart'))
     var nameMap = {
@@ -694,7 +731,7 @@ var china = function() {
                 }
             },
             nameMap: nameMap,
-            // data: 
+            // data:
         }]
     };
 
@@ -745,101 +782,81 @@ var china = function() {
         myChart.resize()
     })
     //实现鼠标放到地图上相应表格高亮
-    $.ajax({
-        async: false,
+    $.ajax
+    ({
+        async: true,
         url: "/table",
         // dataType:"json",
-        success: function (data) {
-            var table_data=data.data;
+        success: function (data)
+        {
+            var table_data = data.data;
             // alert(table_data)
-            for(var i=0;i<table_data.length;i++){
+            for (var i = 0; i < table_data.length; i++) {
                 console.log(table_data[i]);
             }
 
             //  移入该区域时，高亮
-             myChart.on('mouseOver', function(params){
-                 console.log(params);//此处写点击事件内容
-                 for(var i=0;i<24;i++){
-                    // data11[i].value="0";
-                     if(params.name == table_data[i].c_name){
-                         //测试如果鼠标放到哪个国家，就弹出哪个国家的名字
-                         //  alert(params.name)
-                         // console.log(params.name);
-                         //addressList[i].value="1";
-                         //选中高亮
-                         $("#bd_data").children().eq(i).css("background","rgba(176, 196, 222,1)")
-                     }
-                 }
-             });
-            //  移出该区域时，取消高亮
-             myChart.on('mouseOut', function(params){
+            myChart.on('mouseOver', function (params) {
                 console.log(params);//此处写点击事件内容
-                for(var i=0;i<24;i++){
-                   // data11[i].value="0";
-                    if(params.name == table_data[i].c_name){
+                for (var i = 0; i < table_data.length; i++) {
+                    // data11[i].value="0";
+                    if (params.name == table_data[i].c_name) {
+                        //测试如果鼠标放到哪个国家，就弹出哪个国家的名字
+                        //  alert(params.name)
+                        // console.log(params.name);
+                        //addressList[i].value="1";
+                        //选中高亮
+                        $("#bd_data").children().eq(i).css("background", "rgba(176, 196, 222,1)")
+                    }
+                }
+            });
+            //  移出该区域时，取消高亮
+            myChart.on('mouseOut', function (params) {
+                console.log(params);//此处写点击事件内容
+                for (var i = 0; i < table_data.length; i++) {
+                    // data11[i].value="0";
+                    if (params.name == table_data[i].c_name) {
                         //测试如果鼠标离开哪个国家，就弹出哪个国家的名字
                         //  alert("离开"+params.name)
                         // console.log(params.name);
                         //取消高亮
-                        $("#bd_data").children().eq(i).css("background","rgba(176, 196, 222, 0.1)")
+                        $("#bd_data").children().eq(i).css("background", "rgba(176, 196, 222, 0.1)")
                     }
                 }
             });
+
+
+            //下面控制鼠标放到表格上地图高亮
+            // if ("美国" == table_data[i].c_name)
+            // {
+            $("#bd_data").find('tr').mouseenter(function ()
+            {// alert("!!!")\
+                 var hang = $(this).prevAll().length;
+                myChart.dispatchAction({type: 'highlight', name: table_data[hang].c_name});//高亮
+            })
+
+            $("#bd_data").find('tr').mouseleave(function ()
+            {
+                var hang = $(this).prevAll().length;
+                myChart.dispatchAction({type: 'downplay', name: table_data[hang].c_name});//取消高亮
+            })
+                // }
         }
     })
 
      $.ajax({
-        async: false,
+        async: true,
         url: "/table",
         // dataType:"json",
         success: function (data)
         {
              var table_data=data.data;
             // 鼠标移入的第几行数据
-            $("#bd_data").mouseleave(function(){
-                var hang = $(this).prevAll().length;
-                myChart.dispatchAction({ type: 'mouseenter', name:table_data[hang].text});//取消高亮
-            })
-            //success
-            $("#bd_data").mouseleave(function(){
-                var hang = $(this).prevAll().length;
-                myChart.dispatchAction({ type: 'downplay', name:table_data[hang].text});//取消高亮
-            })
+
         }
      })
 })();
-//给表格添加数据
-function get_table() {
-    $.ajax({
-        async: false,
-        url: "/table",
-        // dataType:"json",
-        success: function (data) {
-            var table_data=data.data;
-            // alert(table_data)
-            for(var i=0;i<table_data.length;i++){
-                // console.log(table_data[i]);
-            }
-            var appendHTML = "";
-        if($(".map-table tbody tr").length>0){
-            $(".map-table tbody tr").remove();
-        }
-        for(var i=0; i<24; i++){
-            appendHTML = "<tr align='center' style='color:aquamarine;' id='tr_data'><td>"+
-            table_data[i].dt+"</td><td>"+
-            table_data[i].c_name+"</td><td>"+
-            table_data[i].confirm+"</td><td>"+
-            table_data[i].heal+"</td><td>"+
-            table_data[i].dead+"</td><td>"+
-            table_data[i].nowConfirm+"</td><td>"+
-            (i+1)+"</td></tr>";
-                $(".map-table tbody").append(appendHTML);
-            }
-        }
-    })
-}
-get_table();
-setInterval(get_table,100000);
+
 
 function update_world() {
     $.ajax({
