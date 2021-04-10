@@ -48,40 +48,6 @@ var china = function() {
         // data: {},
         dataType: 'json',
         success: function(data) {
-            // url: 'https://111.231.75.86:8000/api/countries/', //联网失败
-            // var num = data
-            // var a = 0
-            // var b = 0
-            // var c = 0
-            // var d = 0
-            // var e = 0
-            // var f = 0
-            // for (var i = 0; i < data.length; i++) {
-            //     if (data[i].continents === "亚洲") {
-            //         a += data[i].confirmedCount
-            //     }
-            //     if (data[i].continents === '非洲') {
-            //         b += data[i].confirmedCount
-            //     }
-            //     if (data[i].continents === '欧洲') {
-            //         c += data[i].confirmedCount
-            //     }
-            //     if (data[i].continents === '北美洲') {
-            //         d += data[i].confirmedCount
-            //     }
-            //     if (data[i].continents === '南美洲') {
-            //         e += data[i].confirmedCount
-            //     }
-            //     if (data[i].continents === '大洋洲') {
-            //         f += data[i].confirmedCount
-            //     }
-            // }
-            // count.push({ value: e, name: '南美洲' })
-            // count.push({ value: c, name: '欧洲' })
-            // count.push({ value: d, name: '北美洲' })
-            // count.push({ value: f, name: '大洋洲' })
-            // count.push({ value: b, name: '非洲' })
-            // count.push({ value: a, name: '亚洲' })
 
             var a = data.data.FAutoContinentStatis.length - 1
             var contines = data.data.FAutoContinentStatis[a].statis
@@ -421,10 +387,6 @@ var china = function() {
     })
 })();
 
-
-
-//地图模块
-
 //给表格添加数据
 function get_table() {
     $.ajax({
@@ -461,6 +423,7 @@ function get_table() {
 }
 get_table();
 setInterval(get_table,100000);
+//地图模块
 (function() {
     var myChart = echarts.init(document.querySelector('.map .chart'))
     var nameMap = {
@@ -734,39 +697,18 @@ setInterval(get_table,100000);
             // data:
         }]
     };
-
     // 把配置和数据给实例对象
     myChart.setOption(option);
     var virus = []
     $.ajax({
-        url: 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',
-        type: 'get',
-        // data: {},
-        dataType: 'jsonp',
-        success: function(data) {
-            var res = data.data || "";
-            res = JSON.parse(res).chinaTotal.confirm;
-            virus.push({ name: '中国', value: res })
-            myChart.setOption({ //加载数据图表
-                series: [{
-                    // 根据名字对应到相应的系列
-                    data: virus
-                }]
-            })
-        }
-    });
-
-    $.ajax({
-        url: 'https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist',
-        type: 'get',
+        url: '/table',
+        // type: 'get',
         // data: {},
         dataType: 'json',
         success: function(data) {
             var num = data.data
-            var sum = 0
             for (var i = 0; i < num.length; i++) {
-                virus.push({ name: num[i].name, value: num[i].confirm })
-                sum += num[i].confirm
+                virus.push({ name: num[i].c_name, value: num[i].confirm })
             }
             // myChart.hideLoading()
             //必须在这里在设置一遍，这里涉及到的问题不太懂，只知道如不再设置，而在ajax外赋值是没有作用的
@@ -824,8 +766,6 @@ setInterval(get_table,100000);
                     }
                 }
             });
-
-
             //下面控制鼠标放到表格上地图高亮
             // if ("美国" == table_data[i].c_name)
             // {
@@ -844,7 +784,7 @@ setInterval(get_table,100000);
         }
     })
 
-     $.ajax({
+   /*  $.ajax({
         async: true,
         url: "/table",
         // dataType:"json",
@@ -854,10 +794,62 @@ setInterval(get_table,100000);
             // 鼠标移入的第几行数据
 
         }
-     })
+     })*/
 })();
-
-
+//查询js
+function find_res(){
+    var cname;
+    // $.ajax
+    // ({
+    //     method:"post",            　　
+    //     url:"http://localhost:8080/PycharmProjects/Cov/templates/world.html?_ijt=q6ulfhihrfp8rqkl8id73svio3",
+    //     success:function(data)
+    //     {
+    //         //form表单数据的转化，转化成[ { name: , value:   },{ name: , value:   } ]
+    //         all=$('#find_value').serializeArray()
+    //         // console.log(all['cname'])
+    //         console.log(all[0])
+    //         cname=all[0]['value']
+    //         alert(cname)
+    //     }
+    // })
+    cname=document.getElementById("cname").value
+    $.ajax(
+        {
+            sync:true,
+            url:"/find_worldByName",
+            data:{name:cname},
+            success:function (data)
+            {
+                table_data=data.data;
+                for(var i=0;i<table_data.length;i++)
+                {
+                // console.log(table_data[i]);
+                }
+            var appendHTML = "";
+        if($(".map-table tbody tr").length>0){
+            $(".map-table tbody tr").remove();
+        }
+        // alert(table_data.length)
+        for(var i=0; i<table_data.length; i++)
+        {
+            //分割日期字符串
+            strdt=table_data[i][1].split(" ");
+            strdt=strdt[0]+strdt[1]+strdt[2]+strdt[3]
+            appendHTML = "<tr align='center' style='color:aquamarine;'><td>"+
+            strdt+"</td><td>"+
+            table_data[i][2]+"</td><td>"+
+            table_data[i][5]+"</td><td>"+
+            table_data[i][8]+"</td><td>"+
+            table_data[i][9]+"</td><td>"+
+            table_data[i][4]+"</td><td>"+
+            (i+1)+"</td></tr>";
+                $(".map-table tbody").append(appendHTML);
+         }
+            }
+        }
+    )
+}
 function update_world() {
     $.ajax({
         url: "/update_world",

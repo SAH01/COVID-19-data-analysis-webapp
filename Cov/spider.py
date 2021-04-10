@@ -213,6 +213,20 @@ def update_history():
 获取全球疫情数据
 """
 def get_world_data():
+    #爬取中国数据
+    china_url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&callback=jQuery34102848205531413024_1584924641755&_=1584924641756'
+    china_headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3741.400 QQBrowser/10.5.3863.400'
+    }
+    res = requests.get(china_url, headers=china_headers)
+    # 输出全部信息
+    # print(res.text)
+    china_response_data = json.loads(res.text.replace('jQuery34102848205531413024_1584924641755(', '')[:-1])
+    # print(china_response_data)
+    print(json.loads(china_response_data['data']).keys())
+    res_china=json.loads(china_response_data['data']);
+    print(res_china['chinaTotal'])
+    print(res_china['chinaAdd'])
     url='https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist'
     headers={'user-agent': 'WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
     # 创建会话对象
@@ -273,6 +287,25 @@ def get_world_data():
                      'healCompare': healCompare,
                      'deadCompare': deadCompare,
                      }
+
+    temp = response_data_1[0]['y'] + '.' + response_data_1[0]['date']
+    tup = time.strptime(temp, '%Y.%m.%d')
+    # print(tup)
+    dt = time.strftime('%Y-%m-%d %H:%M:%S', tup)  # 改变时间格式，插入数据库 日期
+    world["中国"] = {'dt': dt,
+                     'continent': "亚洲",
+                     'nowConfirm': res_china['chinaTotal']['nowConfirm'],
+                     'confirm': res_china['chinaTotal']['confirm'],
+                     'confirmAdd': res_china['chinaAdd']['confirm'],
+                     'suspect': res_china['chinaTotal']['suspect'],
+                     'heal': res_china['chinaTotal']['heal'],
+                     'dead': res_china['chinaTotal']['dead'],
+                     'confirmAddCut': 0,
+                     'confirmCompare': 0,
+                     'nowConfirmCompare': 0,
+                     'healCompare': 0,
+                     'deadCompare': 0,
+                     }
     return world
 def insert_world():
     """
@@ -307,6 +340,7 @@ def insert_world():
 
 if __name__ == "__main__":
    res=get_world_data();
+   print(res)
    # res=get_history()
    # get_history()
    # print(res)

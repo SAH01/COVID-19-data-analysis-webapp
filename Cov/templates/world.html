@@ -87,6 +87,12 @@
                 <h2>世界疫情数据汇总查询</h2>
                 <div class="map-table">
                 <table align="center" style="margin:3px"  cellspacing="7px">
+                <form id="find_value">
+                    <label><font color="#ff7f50">输入国家：</font></label>
+                    <input id="cname" type="text" name="cname" placeholder="" value="">
+                    <input type="button" value="查询" onclick="find_res()">
+                    <input type="reset" value="重置">
+                </form>
                 <thead>
                  <tr style="color: #FFB6C1">
                 <th>时间</th>
@@ -113,6 +119,7 @@
     <!-- <script src="js/echarts.min.js"></script> -->
     <!--     <script src="js/arcgis.js"></script> -->
     <script src="../static/js/js_world.js"></script>
+
     <script>
     let res1, res2
     $.ajax({

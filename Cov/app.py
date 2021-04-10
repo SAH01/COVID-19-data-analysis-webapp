@@ -19,7 +19,6 @@ def get_time():
 def get_c1_data():
     data=utils.get_c1_data()
     return jsonify({"confirm":data[0],"suspect":data[1],"heal":data[2],"dead":data[3]})
-
 @app.route('/c2')
 def get_c2_data():
     res = []
@@ -27,8 +26,6 @@ def get_c2_data():
         # print(tup)
         res.append({"name": tup[0], "value": int(tup[1]),"heal":int(tup[2]),"dead":int(tup[3])})
     return jsonify({"data": res})
-
-
 @app.route("/l1")
 def get_l1_data():
     data = utils.get_l1_data()
@@ -40,7 +37,6 @@ def get_l1_data():
         heal.append(d)
         dead.append(e)
     return jsonify({"day":day,"confirm": confirm, "suspect": suspect, "heal": heal, "dead": dead})
-
 @app.route("/l2")
 def get_l2_data():
     data = utils.get_l2_data()
@@ -220,5 +216,15 @@ def update_all():
 def update_world():
     spider.insert_world()
     return "update"
+
+#根据国家的名字查询
+@app.route("/find_worldByName")
+def find_worldByName():
+    #获取用户传来的数据
+    res=[]
+    name = request.values.get("name")
+    res=utils.find_worldByName(name)
+    print(res)
+    return jsonify({"data": res})
 if __name__ == '__main__':
     app.run()

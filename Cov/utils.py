@@ -131,8 +131,7 @@ def get_world():
     return list;
 def find_worldByName(c_name):
     sql = " SELECT * FROM world WHERE c_name LIKE '%%%%%s%%%%' order by dt desc "%c_name
-    sql_temp = " SELECT * FROM world WHERE c_name LIKE '"+c_name+"'"
-
+    # sql_temp = " SELECT * FROM world WHERE c_name LIKE '"+c_name+"'"
     res = query(sql)
     list= []
     for i in res:
@@ -143,6 +142,7 @@ def find_worldByName(c_name):
 def find_worldByContinent(continent):
     sql = " SELECT * FROM world WHERE continent LIKE '%%%%%s%%%%'" %continent
     res = query(sql)
+    # print(res)
     list=[]
     for i in res:
         list.append(i)
@@ -153,10 +153,10 @@ if __name__ == '__main__':
         # res=get_city("河北")
         # print(res)
         # print(res[0][0])
-        # res=find_worldByName("美国");
-        # print(res)
+        res=find_worldByName("美国");
+        print(res)
         # print(res)
         # res=find_worldByContinent("北美洲")
         # print(res)
-        res=get_world();
-        print(res)
+        # res=get_world();
+        # print(res)
