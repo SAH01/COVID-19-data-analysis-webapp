@@ -819,12 +819,12 @@ function find_res(){
     cname=document.getElementById("cname").value
     continent=document.getElementById("continent").value
     console.log(cname+continent)
-    alert("表单数据:   "+"国家："+cname+ "大洲："+ continent)
+    // alert("表单数据:   "+"国家："+cname+ "大洲："+ continent)
     $.ajax
     ({
             // sync:true,
             url:"/find_worldByName",
-            type:'post',
+            // type:'post',
             data:{'cname':cname,'continent':continent},
             success:function (data)
             {
@@ -838,7 +838,7 @@ function find_res(){
         if($(".map-table tbody tr").length>0){
             $(".map-table tbody tr").remove();
         }
-        alert("list长度："+table_data.length)
+        // alert("list长度："+table_data.length)
         for(var i=0; i<table_data.length; i++)
             {
             //分割日期字符串

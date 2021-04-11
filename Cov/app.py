@@ -218,18 +218,19 @@ def update_world():
     return "update"
 
 #根据国家的名字查询
-@app.route("/find_worldByName",methods=['POST'])
+@app.route("/find_worldByName")
 def find_worldByName():
     #获取用户传来的数据
     # jsondata = json.loads(request.form.get('jsondata'))
     res=[]
-    # # cname = request.form['name']
-    continent = request.form.get("continent")
-    cname = request.form.get("cname")
-    # continent = request.form['continent']
+    #get方式
+    cname = request.values.get("cname")
+    continent = request.values.get("continent")
+    #post方式
+    # continent = request.form.get("continent")
+    # cname = request.form.get("cname")
+
     # print(cname+continent)
-    # cname=jsondata['cname']
-    # continent=jsondata['continent']
     res=utils.find_worldByName(cname,continent)
     # res = utils.find_worldByName("美国", "")
     # print(res)
