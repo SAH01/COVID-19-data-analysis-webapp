@@ -39,7 +39,7 @@ def query(sql,*args):
     """
     conn , cursor= get_conn()
     print(sql)
-    cursor.execute(sql,args)
+    cursor.execute(sql)
     res = cursor.fetchall()
     close_conn(conn , cursor)
     return res
@@ -129,31 +129,40 @@ def get_world():
         list.append(i)
     # print(list)
     return list;
-def find_worldByName(c_name):
-    sql = " SELECT * FROM world WHERE c_name LIKE '%%%%%s%%%%' order by dt desc "%c_name
-    # sql_temp = " SELECT * FROM world WHERE c_name LIKE '"+c_name+"'"
+
+def find_worldByName(c_name,continent):
+    print(c_name)
+    print(continent)
+    sql = " SELECT * FROM world WHERE  1=1 "
+    if(c_name!=None):
+        sql=sql+"AND ( c_name LIKE '%"+c_name+"%' )"
+    if(continent!=None):
+        sql=sql+" AND ( continent LIKE '%"+continent+"%') "
+    sql=sql+" AND dt=(SELECT dt FROM world order by dt desc limit 1) order by confirm desc "
+
+          # "AND continent LIKE '%%%%%s%%%%'" \
+          # " order by dt desc " %(c_name,continent)
+    # sql_temp = " SELECT * FROM world WHERE c_name LIKE '%"+c_name+"%' "
     res = query(sql)
     list= []
     for i in res:
         # print(i)
         list.append(i)
     return list;
-
-def find_worldByContinent(continent):
-    sql = " SELECT * FROM world WHERE continent LIKE '%%%%%s%%%%'" %continent
-    res = query(sql)
-    # print(res)
-    list=[]
-    for i in res:
-        list.append(i)
-    return list;
-
+# def find_worldByContinent(continent):
+#     sql = " SELECT * FROM world WHERE continent LIKE '%%%%%s%%%%'" %continent
+#     res = query(sql)
+#     # print(res)
+#     list=[]
+#     for i in res:
+#         list.append(i)
+#     return list;
 
 if __name__ == '__main__':
         # res=get_city("河北")
         # print(res)
         # print(res[0][0])
-        res=find_worldByName("美国");
+        res=find_worldByName("中国","亚洲");
         print(res)
         # print(res)
         # res=find_worldByContinent("北美洲")

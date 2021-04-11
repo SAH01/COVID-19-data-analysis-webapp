@@ -223,10 +223,10 @@ def get_world_data():
     # print(res.text)
     china_response_data = json.loads(res.text.replace('jQuery34102848205531413024_1584924641755(', '')[:-1])
     # print(china_response_data)
-    print(json.loads(china_response_data['data']).keys())
+    # print(json.loads(china_response_data['data']).keys())
     res_china=json.loads(china_response_data['data']);
-    print(res_china['chinaTotal'])
-    print(res_china['chinaAdd'])
+    # print(res_china['chinaTotal'])
+    # print(res_china['chinaAdd'])
     url='https://api.inews.qq.com/newsqa/v1/automation/foreign/country/ranklist'
     headers={'user-agent': 'WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
     # 创建会话对象
@@ -321,7 +321,7 @@ def insert_world():
         sql = "insert into world values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         sql_query = 'select %s=(select dt from world order by id desc limit 1)' #对比当前最大时间戳
         cursor.execute(sql_query,dic['美国']['dt'])
-        print(dic['美国']['dt'])
+        # print(dic['美国']['dt'])
         if not cursor.fetchone()[0]:
             print(f"{time.asctime()}开始插入世界数据")
             for k, v in dic.items():
@@ -345,6 +345,6 @@ if __name__ == "__main__":
    # get_history()
    # print(res)
    # print(res)
-   insert_world()
+   # insert_world()
    # update_history()
    # get_details()

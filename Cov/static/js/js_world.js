@@ -734,12 +734,13 @@ setInterval(get_table,100000);
             var table_data = data.data;
             // alert(table_data)
             for (var i = 0; i < table_data.length; i++) {
-                console.log(table_data[i]);
+                // console.log(table_data[i]);
             }
 
             //  移入该区域时，高亮
             myChart.on('mouseOver', function (params) {
-                console.log(params);//此处写点击事件内容
+                // console.log(params);
+                //此处写点击事件内容
                 for (var i = 0; i < table_data.length; i++) {
                     // data11[i].value="0";
                     if (params.name == table_data[i].c_name) {
@@ -754,7 +755,8 @@ setInterval(get_table,100000);
             });
             //  移出该区域时，取消高亮
             myChart.on('mouseOut', function (params) {
-                console.log(params);//此处写点击事件内容
+                //此处写点击事件内容
+                // console.log(params);
                 for (var i = 0; i < table_data.length; i++) {
                     // data11[i].value="0";
                     if (params.name == table_data[i].c_name) {
@@ -799,6 +801,7 @@ setInterval(get_table,100000);
 //查询js
 function find_res(){
     var cname;
+    var continent;
     // $.ajax
     // ({
     //     method:"post",            　　
@@ -814,13 +817,18 @@ function find_res(){
     //     }
     // })
     cname=document.getElementById("cname").value
-    $.ajax(
-        {
-            sync:true,
+    continent=document.getElementById("continent").value
+    console.log(cname+continent)
+    alert("表单数据:   "+"国家："+cname+ "大洲："+ continent)
+    $.ajax
+    ({
+            // sync:true,
             url:"/find_worldByName",
-            data:{name:cname},
+            type:'post',
+            data:{'cname':cname,'continent':continent},
             success:function (data)
             {
+                // alert("!!!")
                 table_data=data.data;
                 for(var i=0;i<table_data.length;i++)
                 {
@@ -830,9 +838,9 @@ function find_res(){
         if($(".map-table tbody tr").length>0){
             $(".map-table tbody tr").remove();
         }
-        // alert(table_data.length)
+        alert("list长度："+table_data.length)
         for(var i=0; i<table_data.length; i++)
-        {
+            {
             //分割日期字符串
             strdt=table_data[i][1].split(" ");
             strdt=strdt[0]+strdt[1]+strdt[2]+strdt[3]
@@ -845,10 +853,9 @@ function find_res(){
             table_data[i][4]+"</td><td>"+
             (i+1)+"</td></tr>";
                 $(".map-table tbody").append(appendHTML);
-         }
             }
         }
-    )
+    })
 }
 function update_world() {
     $.ajax({
