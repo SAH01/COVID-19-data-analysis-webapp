@@ -861,7 +861,6 @@ function update_world() {
     $.ajax({
         url: "/update_world",
         success: function (data) {
-
         }
     })
 }
