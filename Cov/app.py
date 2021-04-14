@@ -9,7 +9,7 @@ import json
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
-    return render_template("main.html")
+    return render_template("world.html")
 @app.route('/ajax',methods=["get","post"])
 #获取时间动态
 @app.route('/time')
@@ -226,12 +226,15 @@ def find_worldByName():
     #get方式
     cname = request.values.get("cname")
     continent = request.values.get("continent")
+    y = request.values.get("y")
+    m = request.values.get("m")
+    d = request.values.get("d")
     #post方式
     # continent = request.form.get("continent")
     # cname = request.form.get("cname")
 
     # print(cname+continent)
-    res=utils.find_worldByName(cname,continent)
+    res=utils.find_worldByName(cname,continent,y,m,d)
     # res = utils.find_worldByName("美国", "")
     # print(res)
     return jsonify({"data": res})

@@ -723,6 +723,8 @@ setInterval(get_table,100000);
     window.addEventListener('resize', function() {
         myChart.resize()
     })
+
+
     //实现鼠标放到地图上相应表格高亮
     $.ajax
     ({
@@ -818,14 +820,17 @@ function find_res(){
     // })
     cname=document.getElementById("cname").value
     continent=document.getElementById("continent").value
-    console.log(cname+continent)
+    y=document.getElementById("y").value
+    m=document.getElementById("m").value
+    d=document.getElementById("d").value
+    console.log(cname+continent+y+"-"+m+"-"+d)
     // alert("表单数据:   "+"国家："+cname+ "大洲："+ continent)
     $.ajax
     ({
             // sync:true,
             url:"/find_worldByName",
             // type:'post',
-            data:{'cname':cname,'continent':continent},
+            data:{'cname':cname,'continent':continent,'y':y,'m':m,'d':d},
             success:function (data)
             {
                 // alert("!!!")
@@ -839,6 +844,8 @@ function find_res(){
             $(".map-table tbody tr").remove();
         }
         // alert("list长度："+table_data.length)
+        if(table_data.length==0)
+                    alert("查询无果！")
         for(var i=0; i<table_data.length; i++)
             {
             //分割日期字符串
