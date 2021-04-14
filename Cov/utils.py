@@ -141,7 +141,7 @@ def find_worldByName(c_name,continent,y,m,d):
     if((y!=None)&(m!=None)&(d!=None)&(y!="")&(m!="")&(d!="")):
         dtft = y + "-" + m + "-" + d + " " + "00:00:00"
         print(dtft)
-        sql=sql+"AND (dt='"+dtft+"')"
+        sql=sql+"AND (dt='"+dtft+"') "
     sql = sql + " order by confirm desc "
           # "AND continent LIKE '%%%%%s%%%%'" \
           # " order by dt desc " %(c_name,continent)
