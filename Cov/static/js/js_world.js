@@ -724,7 +724,6 @@ setInterval(get_table,100000);
         myChart.resize()
     })
 
-
     //实现鼠标放到地图上相应表格高亮
     $.ajax
     ({
@@ -739,7 +738,23 @@ setInterval(get_table,100000);
                 // console.log(table_data[i]);
             }
 
-            //  移入该区域时，高亮
+            //下面控制鼠标放到表格上地图高亮
+            // if ("美国" == table_data[i].c_name)
+            // {
+            $("#bd_data").find('tr').mouseenter(function ()
+            {// alert("!!!")\
+                 var hang = $(this).prevAll().length;
+                 // alert(table_data[hang].c_name)
+                myChart.dispatchAction({type: 'highlight', name: table_data[hang].c_name});//高亮
+            })
+
+            $("#bd_data").find('tr').mouseleave(function ()
+            {
+                var hang = $(this).prevAll().length;
+                myChart.dispatchAction({type: 'downplay', name: table_data[hang].c_name});//取消高亮
+            })
+
+            //  移入地图该区域时，表格高亮
             myChart.on('mouseOver', function (params) {
                 // console.log(params);
                 //此处写点击事件内容
@@ -770,20 +785,7 @@ setInterval(get_table,100000);
                     }
                 }
             });
-            //下面控制鼠标放到表格上地图高亮
-            // if ("美国" == table_data[i].c_name)
-            // {
-            $("#bd_data").find('tr').mouseenter(function ()
-            {// alert("!!!")\
-                 var hang = $(this).prevAll().length;
-                myChart.dispatchAction({type: 'highlight', name: table_data[hang].c_name});//高亮
-            })
 
-            $("#bd_data").find('tr').mouseleave(function ()
-            {
-                var hang = $(this).prevAll().length;
-                myChart.dispatchAction({type: 'downplay', name: table_data[hang].c_name});//取消高亮
-            })
                 // }
         }
     })
@@ -818,11 +820,11 @@ function find_res(){
     //         alert(cname)
     //     }
     // })
-    cname=document.getElementById("cname").value
-    continent=document.getElementById("continent").value
-    y=document.getElementById("y").value
-    m=document.getElementById("m").value
-    d=document.getElementById("d").value
+    cname=document.getElementById("cname").value.trim()
+    continent=document.getElementById("continent").value.trim()
+    y=document.getElementById("y").value.trim()
+    m=document.getElementById("m").value.trim()
+    d=document.getElementById("d").value.trim()
     console.log(cname+continent+y+"-"+m+"-"+d)
     // alert("表单数据:   "+"国家："+cname+ "大洲："+ continent)
     $.ajax

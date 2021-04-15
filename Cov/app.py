@@ -229,10 +229,10 @@ def find_worldByName():
     y = request.values.get("y")
     m = request.values.get("m")
     d = request.values.get("d")
+    print(type(cname))
     #post方式
     # continent = request.form.get("continent")
     # cname = request.form.get("cname")
-
     # print(cname+continent)
     res=utils.find_worldByName(cname,continent,y,m,d)
     # res = utils.find_worldByName("美国", "")

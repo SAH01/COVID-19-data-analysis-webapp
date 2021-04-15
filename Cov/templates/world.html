@@ -89,17 +89,21 @@
                 <table align="center" style="margin:3px"  cellspacing="7px">
                 <form id="find_value">
                     <label><font color="#ff7f50">输入国家：</font></label>
-                    <input id="cname" type="text" name="cname" placeholder="" value="">
+                    <input id="cname" type="text" name="cname" placeholder=""
+                            style="background: rgba(255, 255, 255, 0.2);">
 
                     <label><font color="#ff7f50">输入大洲：</font></label>
-                    <input id="continent" type="text" name="continent" placeholder="" value=""><br>
+                    <input id="continent" type="text" name="continent" placeholder=""
+                           style="background: rgba(255, 255, 255, 0.2);"><br>
 
                     <label><font color="#ff7f50">输入日期：</font></label>
-                    <input id="y" type="text" placeholder="年" value="" style="width: 50px;">
-                    <input id="m" type="text" placeholder="月" value="" style="width: 50px;">
-                    <input id="d" type="text" placeholder="日" value="" style="width: 50px;">
-                    <input type="button" value="查询" onclick="find_res()">
-                    <input type="reset" value="重置">
+                    <input id="y" type="text" placeholder="年" value="" style="width: 50px;background: rgba(255, 255, 255, 0.2);" >
+                    <input id="m" type="text" placeholder="月" value="" style="width: 50px;background: rgba(255, 255, 255, 0.2);">
+                    <input id="d" type="text" placeholder="日" value="" style="width: 50px;background: rgba(255, 255, 255, 0.2);">
+                    <input type="button" value="点击查询" onclick="find_res()" style="background:
+                                        rgba(255, 255, 255, 0.2);color: #ffeb7b ">
+                    <input type="reset" value="刷新表格" onclick="get_table()" style="background:
+                                        rgba(255, 255, 255, 0.2);color: #ffeb7b ">
                 </form>
                 <thead>
                  <tr style="color: #FFB6C1">
