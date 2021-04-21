@@ -40,7 +40,7 @@ var ec_left1_Option = {
     xAxis: [{
         type: 'category',
         // boundaryGap: false,
-        data: ['01.20','01.21','01.22']
+        data: []
     }],
 
     yAxis: [{
@@ -76,28 +76,28 @@ var ec_left1_Option = {
             type: 'line',
             smooth:true,
             // stack: '总量',
-            data: [260,406,529]
+            data: []
         },
         {
             name: '现有疑似',
             type: 'line',
             smooth:true,
             // stack: '总量',
-            data: [54,37,3935]
+            data: []
         },
         {
             name: '累计治愈',
             type: 'line',
             smooth:true,
             // stack: '总量',
-            data: [25,25,25]
+            data: []
         },
         {
             name: '累计死亡',
             type: 'line',
             // stack: '总量',
             smooth:true,
-            data: [6,9,17]
+            data: []
         }]
 };
 ec_left1.setOption(ec_left1_Option)

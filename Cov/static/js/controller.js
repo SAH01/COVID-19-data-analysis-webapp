@@ -88,11 +88,10 @@ function update_all() {
 }
 
 
-
-get_c2_data()
-update_all()
 gettime()
+update_all()
 get_c1_data()
+get_c2_data()
 get_l1_data()
 get_l2_data()
 get_r1_data()
